@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/Harsh3341/CodeSail-Backend/cmd/api"
+	"github.com/Harsh3341/CodeSail-Backend/api-server/api"
 )
 
 func main() {
@@ -11,4 +11,5 @@ func main() {
 	if err := server.Run(); err != nil {
 		log.Fatal(err)
 	}
+
 }
