@@ -1,11 +1,11 @@
 build:
-	@go build -o bin/codesail-backend/api_server api_server/main.go
-	@go build -o bin/codesail-backend/proxy_server proxy_server/main.go
+	@go build -o bin/codesail-backend/api-server api-server/main.go
+	@go build -o bin/codesail-backend/proxy-server proxy-server/main.go
 
 # start the api server and proxy server
 run: build
-	@./bin/codesail-backend/api_server &
-	@./bin/codesail-backend/proxy_server
+	@./bin/codesail-backend/api-server &
+	@./bin/codesail-backend/proxy-server
 
 test:
 	@go test -v ./...
