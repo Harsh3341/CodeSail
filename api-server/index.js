@@ -28,7 +28,7 @@ const client = createClient({
 
 const kafka = new Kafka({
   clientId: `api-server`,
-  brokers: ["kafka-2662d5d2-imcourageous-8c0d.h.aivencloud.com:14033"],
+  brokers: ["kafka-3b175ff8-freethecookies-a3be.k.aivencloud.com:21682"],
   sasl: {
     username: process.env.KAFKA_USERNAME,
     password: process.env.KAFKA_PASSWORD,

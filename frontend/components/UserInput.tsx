@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { useState } from "react";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -33,14 +34,16 @@ export default function UserInput() {
     },
   });
 
+  const [projectID, setProjectID] = useState("");
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     const response = await axios.post("http://localhost:9000/project", data, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-
     console.log(response.data);
+    setProjectID(response.data.data.project.id);
 
     toast({
       title: "You submitted the following values:",
@@ -57,7 +60,7 @@ export default function UserInput() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-6"
+          className="mt-28 w-2/3 space-y-6"
         >
           <FormField
             control={form.control}
@@ -90,6 +93,10 @@ export default function UserInput() {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+      <div className="mt-10 flex flex-col items-center gap-5">
+        <h2>Project ID:</h2>
+        <p>{projectID}</p>
+      </div>
       <Toaster />
     </>
   );

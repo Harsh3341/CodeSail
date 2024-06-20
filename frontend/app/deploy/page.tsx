@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import { useState } from "react";
 
 const FormSchema = z.object({
   projectLink: z.string().min(10, {
@@ -31,6 +32,8 @@ export default function Page() {
     },
   });
 
+  const [deploymentID, setDeploymentID] = useState("");
+
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     const response = await axios.post(
       "http://localhost:9000/deploy",
@@ -45,6 +48,7 @@ export default function Page() {
     );
 
     console.log(response.data);
+    setDeploymentID(response.data.data.deploymentId);
 
     toast({
       title: "You submitted the following values:",
@@ -57,11 +61,11 @@ export default function Page() {
   };
 
   return (
-    <section className="flex h-screen items-center justify-center">
+    <section className="flex h-screen flex-col items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-6"
+          className="mt-28 w-2/3 space-y-6"
         >
           <FormField
             control={form.control}
@@ -81,6 +85,10 @@ export default function Page() {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+      <div className="mt-10 flex flex-col items-center gap-5">
+        <h2>Deployment ID:</h2>
+        <p>{deploymentID}</p>
+      </div>
       <Toaster />
     </section>
   );
